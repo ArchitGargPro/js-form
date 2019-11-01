@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC>
+<HTML> 
+<HEAD>
+	<h1>The Form</h1>
+	<script type="text/javascript">
+		
+	</script>
+</HEAD>
+<BODY>
+	<form name="forme">
+		Email: <input type="text" name="email" placeholder="abc@xyz.com"><br>
+		Password: <input type="password" name="Password" placeholder="********">
+		<hr>
+		Sex: 
+		<select name="sex">
+			<option value="0">---choose your gender---</option>
+			<option value="male">Male</option>
+			<option value="female">Female</option>
+			<option value="other">Other</option>
+		</select>
+		<hr>
+		Select your Role 
+		<br>
+		<input type="radio" name="role" value="admin">Admin</input>
+		<input type="radio" name="role" value="user">User</input>
+		<hr>
+		Select the permissions<br>
+			<input type="checkbox" name="permission" value="Perm1">Perm1</input><br>
+			<input type="checkbox" name="permission" value="Perm2">Perm2</input><br>
+			<input type="checkbox" name="permission" value="Perm3">Perm3</input><br>	
+			<input type="checkbox" name="permission" value="Perm4">Perm4</input><br>
+		<hr>
+		<input type="button" name="SUBMIT" value="SUBMIT" onclick="validate()">
+	</form>
+	<script type="text/javascript">
+		function validate(){
+			// Email validation
+			var check = true;
+			var email = document.forme.email.value;
+			var re = new RegExp("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$");
+			if (!re.test(email)) {
+				alert("Enter valid email");
+				check = false;
+   			} else {
+
+   			// password validation
+			var password = document.querySelector('input[name=Password]').value;
+			// re = new RegExp("^([a-zA-Z0-9]{6,})$");
+			var re1 = new RegExp("([a-z]{1,})");
+			var re2 = new RegExp("([A-Z]{1,})");
+			var re3 = new RegExp("([0-9]{1,})");
+			if (!(re1.test(password) &&
+				 	re2.test(password) &&
+				  		re3.test(password) &&
+				  			password.length>5)) {
+				alert("password should contain A-Z a-z and 0-9 & length should be atleast 6");
+				check = false;
+   			} else {
+
+   			// sex validation
+			var sex = document.forme.sex.value;
+			if(sex=="0"){
+				alert("Please select your gender");
+				check = false;
+			} else {
+
+			// role validation
+			var role = document.forme.role.value;
+			if(role==""){
+				alert("Please select your role");
+				check = false;
+			} else {
+
+			// permission validation
+			var item = document.forme.permission;
+			var permissions = new Array();
+			var n = 0;
+			for (var i = 0; i < item.length; i++) {
+				if(item[i].checked){
+					n++;
+					permissions.push(item[i].value);
+				}
+			}
+			if(n<2){
+				alert("Please select atleast 2 permissions");
+				check = false;
+			}
+			}}}}
+			if(check){
+				// var button = document.querySelector("name=SUBMIT");
+				var f = document.forme;
+				f.style.display = 'None';
+				confirm(`
+					Email : ${email}
+					Password : ${password}
+					Sex : ${sex}
+					Role : ${role} 
+					permissions : ${permissions}`);
+				// alert("Submitting the form ...");
+				// // TODO 
+			}
+		}
+	</script>
+<BODY>
+<HTML>
